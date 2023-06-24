@@ -8,7 +8,8 @@
  * Return: Eliminate the value(argv)
  */
 
-int main(_attribute_((unused)) int argc, char **argv)
+int main(__attribute__((unused)) int argc, char **argv)
+	t@80efd844db48:~/simple_shell# vi i
 {
 	char *input, **cmd;
 	int com = 0, latte = 1, tea = 0;

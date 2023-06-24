@@ -35,7 +35,7 @@ char *_strtok(char *str, const char *delim)
 	ts = nt;
 	if (ts == NULL)
 		return (NULL);
-	for (i = 0; ts[z] != '\0'; z++)
+	for (z = 0; ts[z] != '\0'; z++)
 	{
 		if (check_delim(ts[z], delim) == 0)
 			break;
