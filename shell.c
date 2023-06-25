@@ -1,25 +1,23 @@
 #include "shell.h"
 
 /**
- * main - This is a simple shell task
- * A summary of the main codes
+ * main - Simple Shell (Hsh)
  * @argc: Argument Count
  * @argv:Argument Value
- * Return: Eliminate the value(argv)
+ * Return: Exit Value By Status
  */
 
-int main(__attribute__((unused)) int argc, char **argv)
-	t@80efd844db48:~/simple_shell# vi i
+int main(_attribute_((unused)) int argc, char **argv)
 {
 	char *input, **cmd;
-	int com = 0, latte = 1, tea = 0;
+	int counter = 0, statue = 1, st = 0;
 
 	if (argv[1] != NULL)
 		read_file(argv[1], argv);
 	signal(SIGINT, signal_to_handel);
-	while (latte)
+	while (statue)
 	{
-		com++;
+		counter++;
 		if (isatty(STDIN_FILENO))
 			prompt();
 		input = _getline();
@@ -31,22 +29,22 @@ int main(__attribute__((unused)) int argc, char **argv)
 		cmd = parse_cmd(input);
 		if (_strcmp(cmd[0], "exit") == 0)
 		{
-			exit_bul(cmd, input, argv, com);
+			exit_bul(cmd, input, argv, counter);
 		}
 		else if (check_builtin(cmd) == 0)
 		{
-			st = handle_builtin(cmd, tea);
+			st = handle_builtin(cmd, st);
 			free_all(cmd, input);
 			continue;
 		}
 		else
 		{
-			tea = check_cmd(cmd, input, com, argv);
+			st = check_cmd(cmd, input, counter, argv);
 
 		}
 		free_all(cmd, input);
 	}
-	return (latte);
+	return (statue);
 }
 /**
  * check_builtin - check builtin
@@ -63,17 +61,17 @@ int check_builtin(char **cmd)
 		{"history", NULL},
 		{NULL, NULL}
 	};
-	int z = 0;
+	int i = 0;
 		if (*cmd == NULL)
 	{
 		return (-1);
 	}
 
-	while ((fun + z)->command)
+	while ((fun + i)->command)
 	{
-		if (_strcmp(cmd[0], (fun + z)->command) == 0)
+		if (_strcmp(cmd[0], (fun + i)->command) == 0)
 			return (0);
-		z++;
+		i++;
 	}
 	return (-1);
 }
@@ -84,9 +82,9 @@ int check_builtin(char **cmd)
  */
 void creat_envi(char **envi)
 {
-	int z;
+	int i;
 
-	for (z = 0; environ[z]; z++)
-		envi[z] = _strdup(environ[z]);
-	envi[z] = NULL;
+	for (i = 0; environ[i]; i++)
+		envi[i] = _strdup(environ[i]);
+	envi[i] = NULL;
 }
