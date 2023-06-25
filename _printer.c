@@ -1,19 +1,17 @@
 #include "shell.h"
 /**
  * print_number -Print Unsigned Int Putchar
- * displays an int to
- * screen
  * @n: Unisigned Integer
  * Return: Void
  */
 void print_number(unsigned int n)
 {
-	unsigned int u = n;
+	unsigned int x = n;
 
-	if ((u / 10) > 0)
-		print_number(u / 10);
+	if ((x / 10) > 0)
+		print_number(x / 10);
 
-	_putchar(u % 10 + '0');
+	_putchar(x % 10 + '0');
 }
 /**
  * print_number_in -Print Number Putchar
@@ -22,15 +20,15 @@ void print_number(unsigned int n)
  */
 void print_number_in(int n)
 {
-	unsigned int u = n;
+	unsigned int x = n;
 
-	if (u < 0)
+	if (n < 0)
 	{
 		_putchar('-');
-		u = -u;
+		x = -x;
 	}
-	if ((u / 10) > 0)
-		print_number(u / 10);
+	if ((x / 10) > 0)
+		print_number(x / 10);
 
-	_putchar(u % 10 + '0');
+	_putchar(x % 10 + '0');
 }

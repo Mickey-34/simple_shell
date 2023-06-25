@@ -27,7 +27,7 @@ void  exit_bul(char **cmd, char *input, char **argv, int c)
 		}
 		else
 		{
-			statue = _atoi(cmd[1]);
+			latte = _atoi(cmd[1]);
 			free(input);
 			free(cmd);
 			exit(latte);
@@ -42,7 +42,7 @@ void  exit_bul(char **cmd, char *input, char **argv, int c)
  * @er: Statue Last Command Excuted
  * Return: 0 Succes 1 Failed (For Old Pwd Always 0 Case No Old PWD)
  */
-int change_dir(char **cmd, _attribute_((unused))int er)
+int change_dir(char **cmd, __attribute__((unused))int er)
 {
 	int value = -1;
 	char cwd[PATH_MAX];
@@ -75,7 +75,7 @@ int change_dir(char **cmd, _attribute_((unused))int er)
  * @er:Statue of Last command Excuted
  * Return:Always 0
  */
-int dis_env(_attribute((unused)) char **cmd, __attribute_((unused)) int er)
+int dis_env(__attribute__((unused)) char **cmd, __attribute__((unused)) int er)
 {
 size_t i;
 	int len;
@@ -94,7 +94,7 @@ size_t i;
  * @er: Statue Of Last Command Excuted
  * Return: 0 Succes -1 Fail
  */
-int display_help(char **cmd, _attribute_((unused))int er)
+int display_help(char **cmd, __attribute__((unused))int er)
 {
 	int fd, fw, rd = 1;
 	char a;

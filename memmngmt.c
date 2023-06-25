@@ -75,7 +75,7 @@ char *_memcpy(char *dest, char *src, unsigned int n)
  */
 void *fill_an_array(void *a, int el, unsigned int len)
 {
-	char *p = b;
+	char *p = a;
 	unsigned int z = 0;
 
 	while (z < len)
@@ -84,7 +84,7 @@ void *fill_an_array(void *a, int el, unsigned int len)
 		p++;
 		z++;
 	}
-	return (b);
+	return (a);
 }
 /**
  * _calloc -  Allocates Memory For An Array, Using Malloc.
