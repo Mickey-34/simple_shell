@@ -7,7 +7,7 @@
  * Return: Exit Value By Status
  */
 
-int main(_attribute_((unused)) int argc, char **argv)
+int main(__attribute__((unused)) int argc, char **argv)
 {
 	char *input, **cmd;
 	int counter = 0, statue = 1, st = 0;
