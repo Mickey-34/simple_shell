@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * check_delim - Checks If A Character Match Any Char
- * token usually breaks chars into pieces
+ * token usually breaks chars into pieces and pieces
  * @c: Character To Check
  * @str: String To Check
  * Return: 1 Succes, 0 Failed
