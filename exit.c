@@ -2,7 +2,7 @@
 
 /**
   * __exit - exits from shell
-  * leaves shell
+  * leaves shell 70--
   * @info: arguments passed
   * Return: int
   */
