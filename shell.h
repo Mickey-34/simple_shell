@@ -86,6 +86,7 @@ int echo_bul(char **cmd, int er);
 void  exit_bul(char **cmd, char *input, char **argv, int c);
 int print_echo(char **cmd);
 
+
 /**##errno handle and Printer ##*/
 void print_number(unsigned int n);
 void print_number_in(int n);
