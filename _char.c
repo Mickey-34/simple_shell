@@ -2,7 +2,7 @@
 
 /**
  * _strcmp - Compare Two String
- * comparsion of strings
+ * comparsion of strings 222
  * @s1:String 1
  * @s2:String 2
  * Return: 0 If Identical Otherwise How Much Diffrent
