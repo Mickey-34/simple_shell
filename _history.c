@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * history - Fill File By User Input
- * history usually provided by user
+ * history usually provided by user 999
  * @input: User Input
  * Return: -1 Fail 0 Succes
  */
