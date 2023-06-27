@@ -1,90 +1,78 @@
 #include "shell.h"
 
 /**
- * main - Simple Shell (Hsh)
- * @argc: Argument Count
- * @argv:Argument Value
- * Return: Exit Value By Status
+ * without_comment - deletes comments from the input
+ * removes comments
+ *
+ * @in: input string
+ * Return: input without comments
  */
-
-int main(__attribute__((unused)) int argc, char **argv)
+char *without_comment(char *in)
 {
-	char *input, **cmd;
-	int counter = 0, statue = 1, st = 0;
+	int z, f;
 
-	if (argv[1] != NULL)
-		read_file(argv[1], argv);
-	signal(SIGINT, signal_to_handel);
-	while (statue)
+	f = 0;
+	for (z = 0; in[z]; z++)
 	{
-		counter++;
-		if (isatty(STDIN_FILENO))
-			prompt();
-		input = _getline();
-		if (input[0] == '\0')
+		if (in[z] == '#')
 		{
-			continue;
+			if (z == 0)
+			{
+				free(in);
+				return (NULL);
+			}
+
+			if (in[z - 1] == ' ' || in[z - 1] == '\t' || in[z - 1] == ';')
+				f = z;
 		}
-		history(input);
-		cmd = parse_cmd(input);
-		if (_strcmp(cmd[0], "exit") == 0)
+	}
+
+	if (f != 0)
+	{
+		in = _realloc(in, z, f + 1);
+		in[f] = '\0';
+	}
+
+	return (in);
+}
+
+/**
+ * shell_loop - Loop of shell
+ * @datash: data relevant (av, input, args)
+ *
+ * Return: no return.
+ */
+void shell_loop(data_shell *datash)
+{
+	int v, i_eof;
+	char *input;
+
+	v = 1;
+	while (v == 1)
+	{
+		write(STDIN_FILENO, "$ ", 4);
+		input = read_line(&i_eof);
+		if (i_eof != -1)
 		{
-			exit_bul(cmd, input, argv, counter);
-		}
-		else if (check_builtin(cmd) == 0)
-		{
-			st = handle_builtin(cmd, st);
-			free_all(cmd, input);
-			continue;
+			input = without_comment(input);
+			if (input == NULL)
+				continue;
+
+			if (check_syntax_error(datash, input) == 1)
+			{
+				datash->status = 2;
+				free(input);
+				continue;
+			}
+			input = rep_var(input, datash);
+			v = split_commands(datash, input);
+			datash->counter += 1;
+			free(input);
 		}
 		else
 		{
-			st = check_cmd(cmd, input, counter, argv);
-
+			v = 0;
+			free(input);
 		}
-		free_all(cmd, input);
 	}
-	return (statue);
-}
-/**
- * check_builtin - check builtin
- *
- * @cmd:command to check
- * Return: 0 Succes -1 Fail
- */
-int check_builtin(char **cmd)
-{
-	bul_t fun[] = {
-		{"cd", NULL},
-		{"help", NULL},
-		{"echo", NULL},
-		{"history", NULL},
-		{NULL, NULL}
-	};
-	int i = 0;
-		if (*cmd == NULL)
-	{
-		return (-1);
-	}
-
-	while ((fun + i)->command)
-	{
-		if (_strcmp(cmd[0], (fun + i)->command) == 0)
-			return (0);
-		i++;
-	}
-	return (-1);
-}
-/**
- * creat_envi - Creat Array of Enviroment Variable
- * @envi: Array of Enviroment Variable
- * Return: Void
- */
-void creat_envi(char **envi)
-{
-	int i;
-
-	for (i = 0; environ[i]; i++)
-		envi[i] = _strdup(environ[i]);
-	envi[i] = NULL;
 }
