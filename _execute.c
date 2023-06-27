@@ -29,7 +29,7 @@ int is_cdir(char *path, int *i)
  * @_environ: environment variable
  * Return: location of the command.
  */
-char _which(char *cmd, char *_environ)
+char *_which(char *cmd, char **_environ)
 {
 	char *path, *ptr_path, *token_path, *dir;
 	int len_dir, len_cmd, i;
