@@ -1,66 +1,85 @@
 #include "shell.h"
 
 /**
-* _getline - Reads input provided from the user
-* getline for this particular shell
-* Return: Input
-*/
-char *_getline()
-{
-int z, buffsize = BUFSIZE, rd;
-char a = 0;
-char *buff = malloc(buffsize);
-
-	if (buff == NULL)
-	{
-		free(buff);
-		return (NULL);
-	}
-
-	for (z = 0; a != EOF && z != '\n'; z++)
-	{
-		fflush(stdin);
-		rd = read(STDIN_FILENO, &a, 1);
-		if (rd == 0)
-		{
-			free(buff);
-			exit(EXIT_SUCCESS);
-		}
-		buff[z] = a;
-		if (buff[0] == '\n')
-		{
-			free(buff);
-			return ("\0");
-		}
-		if (z >= buffsize)
-		{
-			buff = _realloc(buff, buffsize, buffsize + 1);
-			if (buff == NULL)
-			{
-				return (NULL);
-			}
-		}
-	}
-	buff[z] = '\0';
-	hashtag_handle(buff);
-	return (buff);
-}
-
-/**
- * hashtag_handle - remove everything after #
- * @buff: input;
- * Return:void
+ * bring_line - assigns the line var for get_line
+ *
+ * @lineptr: Buffer that store the input str
+ * @buffer: str that is been called to line
+ * @n: size of line
+ * @j: size of buffer
  */
-void hashtag_handle(char *buff)
+void bring_line(char **lineptr, size_t *n, char *buffer, size_t j)
+{
+
+	if (*lineptr == NULL)
+	{
+		if  (j > BUFSIZE)
+			*n = j;
+
+		else
+			*n = BUFSIZE;
+		*lineptr = buffer;
+	}
+	else if (*n < j)
+	{
+		if (j > BUFSIZE)
+			*n = j;
+		else
+			*n = BUFSIZE;
+		*lineptr = buffer;
+	}
+	else
+	{
+		_strcpy(*lineptr, buffer);
+		free(buffer);
+	}
+}
+/**
+ * get_line - Read inpt from stream
+ * @lineptr: buffer that stores the input
+ * @n: size of lineptr
+ * @stream: stream to read from
+ * Return: The number of bytes
+ */
+ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 {
 	int z;
+	static ssize_t input;
+	ssize_t retval;
+	char *buffer;
+	char r = 'o';
 
-		for (z = 0; buff[z] != '\0'; z++)
+	if (input == 0)
+		fflush(stream);
+	else
+		return (-1);
+	input = 0;
+
+	buffer = malloc(sizeof(char) * BUFSIZE);
+	if (buffer == 0)
+		return (-1);
+	while (r != '\n')
+	{
+		z = read(STDIN_FILENO, &r, 1);
+		if (z == -1 || (z == 0 && input == 0))
 		{
-			if (buff[z] == '#')
-			{
-			buff[z] = '\0';
+			free(buffer);
+			return (-1);
+		}
+		if (z == 0 && input != 0)
+		{
+			input++;
 			break;
-			}
+		}
+		if (input >= BUFSIZE)
+			buffer = _realloc(buffer, input, input + 1);
+		buffer[input] = r;
+		input++;
 	}
+	buffer[input] = '\0';
+	bring_line(lineptr, n, buffer, input);
+	retval = input;
+	if (z != 0)
+		input = 0;
+	return (retval);
 }
