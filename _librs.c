@@ -2,6 +2,7 @@
 
 /**
  * get_len - Get the lenght of a number.
+ *
  * @n: type int number.
  * Return: Lenght of a number.
  */
@@ -72,7 +73,7 @@ char *aux_itoa(int n)
  */
 int _atoi(char *s)
 {
-	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, z;
+	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, i;
 
 	while (*(s + count) != '\0')
 	{
@@ -82,7 +83,7 @@ int _atoi(char *s)
 		if (*(s + count) == '-')
 			pn *= -1;
 
-		if (((s + count) >= '0') && ((s + count) <= '9'))
+		if ((*(s + count) >= '0') && (*(s + count) <= '9'))
 		{
 			if (size > 0)
 				m *= 10;
@@ -91,10 +92,10 @@ int _atoi(char *s)
 		count++;
 	}
 
-	for (z = count - size; z < count; z++)
+	for (i = count - size; i < count; i++)
 	{
-		oz = oz + ((*(s + z) - 48) * m);
+		oi = oi + ((*(s + i) - 48) * m);
 		m /= 10;
 	}
-	return (oz * pn);
+	return (oi * pn);
 }

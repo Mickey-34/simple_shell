@@ -4,6 +4,7 @@
  * copy_info - copies info to create
  * a new env or alias
  * @name: name (env or alias)
+ *
  * @value: value (env or alias)
  *
  * Return: new env or alias.
@@ -40,7 +41,7 @@ void set_env(char *name, char *value, data_shell *datash)
 
 	for (z = 0; datash->_environ[z]; z++)
 	{
-		var_env = _strdup(datash->_environ[i]);
+		var_env = _strdup(datash->_environ[z]);
 		name_env = _strtok(var_env, "=");
 		if (_strcmp(name_env, name) == 0)
 		{
@@ -53,7 +54,7 @@ void set_env(char *name, char *value, data_shell *datash)
 	}
 
 	datash->_environ = _reallocdp(datash->_environ, z, sizeof(char *) * (z + 2));
-	datash->_environ[i] = copy_info(name, value);
+	datash->_environ[z] = copy_info(name, value);
 	datash->_environ[z + 1] = NULL;
 }
 
@@ -117,11 +118,11 @@ int _unsetenv(data_shell *datash)
 	{
 		if (z != k)
 		{
-			realloc_environ[j] = datash->_environ[i];
+			realloc_environ[d] = datash->_environ[z];
 			d++;
 		}
 	}
-	realloc_environ[j] = NULL;
+	realloc_environ[d] = NULL;
 	free(datash->_environ[k]);
 	free(datash->_environ);
 	datash->_environ = realloc_environ;

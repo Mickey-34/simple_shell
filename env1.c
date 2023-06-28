@@ -4,6 +4,7 @@
  * cmp_env_name - compares env variables names
  * with the name passed.
  * @nenv: name of the environment variable
+ *
  * @name: name passed
  *
  * Return: 0 if are not equal. Another value if they are.
@@ -31,7 +32,7 @@ int cmp_env_name(const char *nenv, const char *name)
  * Return: value of the environment variable if is found.
  * In other case, returns NULL.
  */
-char _getenv(const char *name, char *_environ)
+char *_getenv(const char *name, char **_environ)
 {
 	char *ptr_env;
 	int i, mov;
